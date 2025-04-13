@@ -8,13 +8,11 @@ from .serializers import AdvertisementSerializer
 from .filters import AdvertisementFilter
 from .permissions import IsOwnerOrReadOnly
 
-
 def home(request):
     """
     Представление для отображения главной страницы.
     """
-    return render(request, 'my_template.html')
-
+    return render(request, 'home.html')
 
 class AdvertisementViewSet(viewsets.ModelViewSet):
     """
@@ -25,7 +23,7 @@ class AdvertisementViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = AdvertisementFilter
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
-    permission_classes = [permissions.AllowAny] # Права доступа по умолчанию
+    permission_classes = [permissions.AllowAny]  # Права доступа по умолчанию
 
     def get_permissions(self):
         """

@@ -1,7 +1,11 @@
-from django.urls import path
-from .views import AdvertisementViewSet  # Предполагая, что у вас ViewSet
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import AdvertisementViewSet, home  # Импортируем представление home
+
+router = DefaultRouter()
+router.register(r'advertisements', AdvertisementViewSet)
 
 urlpatterns = [
-    path('advertisements/', AdvertisementViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('advertisements/<int:pk>/', AdvertisementViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'})),
+    path('', home, name='home'),  # Маршрут для главной страницы
+    path('api/', include(router.urls)),  # Маршрут для API
 ]
